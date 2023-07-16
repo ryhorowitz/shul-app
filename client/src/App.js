@@ -4,6 +4,7 @@ import Home from './components/Home';
 import Login from './components/Login';
 import Shuls from './components/Shuls';
 import AddShul from './components/AddShul';
+import Reviews from './components/Reviews'
 
 function App() {
   return (
@@ -23,6 +24,9 @@ function App() {
             <li>
               <Link to="/add-shul">Add Shul</Link>
             </li>
+            <li>
+              <Link to="/reviews">Reviews</Link>
+            </li>
           </ul>
         </nav>
         <Routes>
@@ -30,6 +34,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/shuls" element={<Shuls />} />
           <Route path="/add-shul" element={<AddShul />} />
+          <Route path="/reviews" element={<Reviews />} />
         </Routes>
       </Router>
     </div>
