@@ -8,7 +8,7 @@ function Auth({ setUser }) {
   function handleLogin(e) {
     e.preventDefault()
 
-    fetch("/users", {
+    fetch("/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -17,7 +17,12 @@ function Auth({ setUser }) {
     })
       .then(r => {
         if (r.ok) {
-          r.json().then(setUser)
+          r.json()
+            .then(r => {
+              console.log('r is ', r)
+              setUser(r)
+            })
+
         } else {
           r.json().then(e => setErrors(Object.entries(e.error).flat()))
         }
