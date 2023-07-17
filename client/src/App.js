@@ -3,23 +3,34 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Auth from './components/Auth';
 import Signup from './components/Signup';
-import Shuls from './components/Shuls';
-import AddShul from './components/AddShul';
-import Reviews from './components/Reviews'
+// import Shuls from './components/Shuls';
+// import AddShul from './components/AddShul';
+// import Reviews from './components/Reviews'
 
 function App() {
   const [user, setUser] = useState(null);
 
-  // useEffect(() =>{
-  //   fetch('/auth')
-  // })
+  useEffect(() => {
+    fetch('/auth')
+      .then(r => {
+        if (r.ok) {
+          r.json()
+            .then(r => {
+              console.log('r is ', r)
+              setUser(r)
+            })
+        }
+      })
+  }, [])
+
+
   return (
     <div className="App">
       <Router>
         <nav>
           <ul>
             <li>
-              <Link to="/">Home</Link>
+              <Link to="/">Login</Link>
             </li>
             <li>
               <Link to="/signup">Signup</Link>
@@ -38,9 +49,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Auth setUser={setUser} />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/shuls" element={<Shuls />} />
+          {/* <Route path="/shuls" element={<Shuls />} />
           <Route path="/add-shul" element={<AddShul />} />
-          <Route path="/reviews" element={<Reviews />} />
+          <Route path="/reviews" element={<Reviews />} /> */}
         </Routes>
       </Router>
     </div>
