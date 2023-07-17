@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import Home from './components/Home';
+import Auth from './components/Auth';
 import Signup from './components/Signup';
 import Shuls from './components/Shuls';
 import AddShul from './components/AddShul';
@@ -10,6 +10,9 @@ import Reviews from './components/Reviews'
 function App() {
   const [user, setUser] = useState(null);
 
+  // useEffect(() =>{
+  //   fetch('/auth')
+  // })
   return (
     <div className="App">
       <Router>
@@ -33,7 +36,7 @@ function App() {
           </ul>
         </nav>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Auth setUser={setUser} />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/shuls" element={<Shuls />} />
           <Route path="/add-shul" element={<AddShul />} />

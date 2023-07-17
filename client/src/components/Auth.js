@@ -1,21 +1,27 @@
 import React, { useState } from "react";
 
-function Home(params) {
+function Auth({ setUser }) {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
+  const [errors, setErrors] = useState([])
 
   function handleLogin(e) {
     e.preventDefault()
 
-    fetch("/signup", {
+    fetch("/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({ username, password })
     })
-      .then(r => r.json())
-      .then(r => console.log("sucessful login", r))
+      .then(r => {
+        if (r.ok) {
+          r.json().then(setUser)
+        } else {
+          r.json().then(e => setErrors(Object.entries(e.error).flat()))
+        }
+      })
   }
   return (
     <>
@@ -40,6 +46,6 @@ function Home(params) {
       </form>
     </>
   )
-}
 
-export default Home
+}
+export default Auth
