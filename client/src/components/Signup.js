@@ -19,7 +19,7 @@ function Login({ onLogin }) {
   }
   return (
     <>
-      <h1>Login</h1>
+      <h1>Signup</h1>
 
       <form onSubmit={handleSubmit}>
         <label htmlFor="username">Username:</label>
