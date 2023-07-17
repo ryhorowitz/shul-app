@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Home from './components/Home';
@@ -7,6 +8,8 @@ import AddShul from './components/AddShul';
 import Reviews from './components/Reviews'
 
 function App() {
+  const [user, setUser] = useState(null);
+
   return (
     <div className="App">
       <Router>
