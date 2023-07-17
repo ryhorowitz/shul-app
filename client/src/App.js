@@ -22,7 +22,7 @@ function App() {
         }
       })
   }, [])
-
+  // if no user return login page
 
   return (
     <div className="App">
@@ -35,7 +35,7 @@ function App() {
             <li>
               <Link to="/signup">Signup</Link>
             </li>
-            <li>
+            {/* <li>
               <Link to="/shuls">Shuls</Link>
             </li>
             <li>
@@ -43,7 +43,7 @@ function App() {
             </li>
             <li>
               <Link to="/reviews">Reviews</Link>
-            </li>
+            </li> */}
           </ul>
         </nav>
         <Routes>
