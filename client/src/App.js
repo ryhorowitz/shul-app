@@ -1,7 +1,7 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Home from './components/Home';
-import Login from './components/Login';
+import Signup from './components/Signup';
 import Shuls from './components/Shuls';
 import AddShul from './components/AddShul';
 import Reviews from './components/Reviews'
@@ -16,7 +16,7 @@ function App() {
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/login">Login</Link>
+              <Link to="/signup">Signup</Link>
             </li>
             <li>
               <Link to="/shuls">Shuls</Link>
@@ -31,7 +31,7 @@ function App() {
         </nav>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
           <Route path="/shuls" element={<Shuls />} />
           <Route path="/add-shul" element={<AddShul />} />
           <Route path="/reviews" element={<Reviews />} />
