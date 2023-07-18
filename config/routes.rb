@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :users, only: %i[create show]
-  resources :shuls, only: [:show]
+  resources :shuls, only: [:index]
 
   get '/auth', to: 'users#show'
   post '/login', to: 'sessions#create'

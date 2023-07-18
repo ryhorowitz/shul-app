@@ -1,5 +1,5 @@
 class ShulsController < ApplicationController
-  def show
+  def index
     shuls = Shul.all
 
     render json: shuls, status: :ok

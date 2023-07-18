@@ -11,8 +11,9 @@ import LogoutButton from './components/LogoutButton'
 function App() {
   // eslint-disable-next-line
   const [user, setUser] = useState(null);
+  const [shuls, setShuls] = useState([])
 
-  useEffect(() => {
+  function authorizeUser() {
     fetch('/auth')
       .then(r => {
         if (r.ok) {
@@ -23,18 +24,29 @@ function App() {
             })
         }
       })
+  }
+
+  function getShuls() {
+    fetch('/shuls')
+      .then(r => r.json())
+      .then(shuls => setShuls(shuls))
+  }
+
+  useEffect(() => {
+    authorizeUser()
+    getShuls()
   }, [])
 
   function handleLogout() {
-    fetch('/logout', { method: 'DELETE'})
-    .then( r => setUser(null))
+    fetch('/logout', { method: 'DELETE' })
+      .then(r => setUser(null))
   }
   // if no user return login page
   if (!user) return <Login setUser={setUser} />
   return (
     <div className="App">
-      { user ? <LogoutButton logout={handleLogout}/> : <button>Login</button>}
-      
+      {user ? <LogoutButton logout={handleLogout} /> : <button>Login</button>}
+
       <Router>
         <nav>
           <ul>
@@ -45,7 +57,7 @@ function App() {
               <Link to="/shuls">Shuls</Link>
             </li>
             {/* <li> */}
-              {/* <Link to="/signup">Signup</Link> */}
+            {/* <Link to="/signup">Signup</Link> */}
             {/* </li> */}
             {/*<li>
               <Link to="/add-shul">Add Shul</Link>
