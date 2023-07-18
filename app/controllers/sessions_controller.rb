@@ -12,5 +12,7 @@ class SessionsController < ApplicationController
 end
 
   def destroy
+    reset_session
+    render status: :no_content
   end
 end

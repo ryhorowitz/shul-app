@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 
-function Shuls(params) {
+function Home(params) {
   return (
     <>
-    <h1>Shuls</h1>
-    <h1>DUMBY PAGE</h1>
+    <h1>Home</h1>
+    <h1>DUMBY HOME PAGE</h1>
     <h1>BLAH BLAH BLAH</h1>
     </>
   )
 }
 
-export default Shuls
+export default Home
