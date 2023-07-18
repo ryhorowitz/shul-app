@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import Auth from './components/Auth';
+import Login from './components/Login';
 // import Signup from './components/Signup';
 import Shuls from './components/Shuls';
 // import AddShul from './components/AddShul';
 // import Reviews from './components/Reviews'
 import Home from './components/Home';
+import LogoutButton from './components/LogoutButton'
 function App() {
   // eslint-disable-next-line
   const [user, setUser] = useState(null);
@@ -29,10 +30,10 @@ function App() {
     .then( r => setUser(null))
   }
   // if no user return login page
-  if (!user) return <Auth setUser={setUser} />
+  if (!user) return <Login setUser={setUser} />
   return (
     <div className="App">
-      { user ? <button onClick={handleLogout}>Logout</button> : <button>Login</button>}
+      { user ? <LogoutButton logout={handleLogout}/> : <button>Login</button>}
       
       <Router>
         <nav>

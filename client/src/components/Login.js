@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function Auth({ setUser }) {
+function Login({ setUser }) {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   // eslint-disable-next-line
@@ -18,13 +18,7 @@ function Auth({ setUser }) {
     })
       .then(r => {
         if (r.ok) {
-          console.log('ok response')
-          r.json()
-            .then(r => {
-              console.log('r is ', r)
-              setUser(r)
-            })
-
+          r.json().then(r => { setUser(r)})
         } else {
           console.log('error response')
           r.json().then(e => setErrors(Object.entries(e.error).flat()))
@@ -56,4 +50,4 @@ function Auth({ setUser }) {
   )
 
 }
-export default Auth
+export default Login
