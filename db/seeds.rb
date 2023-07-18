@@ -25,8 +25,9 @@ shul_5 = Shul.create(name: 'Shtiebel', movement: 'Modern Orthodox')
 
 20.times do
   Review.create(
-    title: Faker::Lorem.sentence(word_count: rand(4..6))
-    body: review = Faker::Lorem.paragraph_by_chars(number: rand(200..300))
-    user_id: rand(1..5)
+    title: Faker::Lorem.sentence(word_count: rand(4..6)),
+    body: review = Faker::Lorem.paragraph_by_chars(number: rand(200..300)),
+    user_id: rand(1..5),
     shul_id: rand(1..5)
+  )
 end
