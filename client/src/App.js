@@ -13,36 +13,18 @@ function App() {
   const [user, setUser] = useState(null);
   const [shuls, setShuls] = useState([])
 
-  function authorizeUser() {
-    fetch('/auth')
-      .then(r => {
-        if (r.ok) {
-          r.json()
-            .then(user => {
-              console.log('user is ', user)
-              setUser(user)
-            })
-        }
-      })
-  }
-
-  function getShuls() {
-    fetch('/shuls')
-      .then(r => r.json())
-      .then(shuls => setShuls(shuls))
-  }
-
-  useEffect(() => {
-    authorizeUser()
-    getShuls()
-  }, [])
-
   function handleLogout() {
     fetch('/logout', { method: 'DELETE' })
       .then(r => setUser(null))
+      .then(() => setShuls([]))
   }
-  // if no user return login page
-  if (!user) return <Login setUser={setUser} />
+
+  useEffect(() => {
+    fetch(`shuls`)
+      .then(r => r.json())
+      .then(shuls => setShuls(shuls))
+  }, [])
+  if (!user) return <Login setUser={setUser} setShuls={setShuls} />
   return (
     <div className="App">
       {user ? <LogoutButton logout={handleLogout} /> : <button>Login</button>}

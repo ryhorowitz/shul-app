@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function Login({ setUser }) {
+function Login({ setUser, setShuls }) {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   // eslint-disable-next-line
@@ -18,7 +18,7 @@ function Login({ setUser }) {
     })
       .then(r => {
         if (r.ok) {
-          r.json().then(r => { setUser(r)})
+          r.json().then(r => { setUser(r) })
         } else {
           console.log('error response')
           r.json().then(e => setErrors(Object.entries(e.error).flat()))

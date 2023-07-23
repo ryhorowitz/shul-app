@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-
   def create
     user = User.create(user_params)
     byebug
@@ -14,10 +13,10 @@ class UsersController < ApplicationController
     current_user = User.find(session[:user_id])
     render json: current_user
   end
+
   private
 
   def user_params
     params.permit(:username, :password, :password_confirmation)
-    
   end
 end
