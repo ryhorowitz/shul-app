@@ -20,10 +20,11 @@ function App() {
   }
 
   useEffect(() => {
-    fetch(`shuls`)
+    fetch('shuls')
       .then(r => r.json())
       .then(shuls => setShuls(shuls))
   }, [])
+
   if (!user) return <Login setUser={setUser} setShuls={setShuls} />
   return (
     <div className="App">
