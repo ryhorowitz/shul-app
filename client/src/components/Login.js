@@ -66,7 +66,7 @@ function Login({ setUser, setShuls }) {
         if (r.ok) {
           r.json().then(r => { console.log(r) })
         } else {
-          // console.log('error response')
+          console.log('error response')
           r.json().then(e => {
             console.log('error response', e)
             setErrors(Object.entries(e.errors).flat())
