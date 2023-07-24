@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 
-function Login({ setUser, setShuls }) {
+function Login({ setUser }) {
   // eslint-disable-next-line
   const [errors, setErrors] = useState([])
   const [loginFormData, setLoginFormData] = useState({
@@ -64,7 +64,10 @@ function Login({ setUser, setShuls }) {
     })
       .then(r => {
         if (r.ok) {
-          r.json().then(r => { console.log(r) })
+          r.json().then(r => {
+            console.log('user created successfully', r)
+            setUser(r)
+          })
         } else {
           console.log('error response')
           r.json().then(e => {

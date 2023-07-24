@@ -28,12 +28,19 @@ function App() {
     }
   }, [user])
 
-
-  if (!user) return <Login setUser={setUser} setShuls={setShuls} />
+  function deleteUser() {
+    fetch(`/users/${user.id}`, { method: 'DELETE' })
+      .then(r => setUser(null))
+      .then(() => setShuls([]))
+      .then(console.log(user.username, 'was deleted'))
+  }
+  if (!user) return <Login setUser={setUser} />
   return (
     <div className="App">
       {user ? <LogoutButton logout={handleLogout} /> : <button>Login</button>}
-
+      <div id='username-display'>Hi {user.username}!
+        <button onClick={deleteUser}>Delete user?</button>
+      </div>
       <Router>
         <nav>
           <ul>

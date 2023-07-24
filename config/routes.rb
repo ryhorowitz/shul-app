@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :users, only: %i[create show]
+  resources :users, only: %i[create show destroy]
   resources :shuls, only: [:index]
 
   get '/auth', to: 'users#show'

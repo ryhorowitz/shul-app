@@ -6,7 +6,7 @@ function Shuls({ shuls }) {
     <>
       <h1>Shuls</h1>
       {shuls.map(shul => {
-        return <li>{shul.name}</li>
+        return <li key={shul.id}>{shul.name}</li>
       })}
     </>
   )
