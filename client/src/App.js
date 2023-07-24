@@ -18,12 +18,16 @@ function App() {
       .then(r => setUser(null))
       .then(() => setShuls([]))
   }
-
+  // if users is set then fetch shuls? set users as dependency of useEffect
   useEffect(() => {
-    fetch('shuls')
-      .then(r => r.json())
-      .then(shuls => setShuls(shuls))
-  }, [])
+    if (user) {
+      fetch('shuls')
+        .then(r => r.json())
+        .then(shuls => setShuls(shuls))
+
+    }
+  }, [user])
+
 
   if (!user) return <Login setUser={setUser} setShuls={setShuls} />
   return (

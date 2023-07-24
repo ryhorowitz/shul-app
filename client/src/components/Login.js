@@ -1,17 +1,27 @@
 import React, { useState } from "react"
 
 function Login({ setUser, setShuls }) {
+  // eslint-disable-next-line
+  const [errors, setErrors] = useState([])
   const [loginFormData, setLoginFormData] = useState({
     username: '',
     password: ''
   })
-  // eslint-disable-next-line
-  const [errors, setErrors] = useState([])
   const [signupFormData, setSignupFormData] = useState({
     username: '',
     password: '',
     confirmPassword: ''
   })
+
+  function handleLoginFormData(e) {
+    const { name, value } = e.target
+    setLoginFormData({ ...loginFormData, [name]: value })
+  }
+
+  function handleSignupFormData(e) {
+    const { name, value } = e.target
+    setSignupFormData({ ...signupFormData, [name]: value })
+  }
 
   function handleLogin(e) {
     e.preventDefault()
@@ -30,23 +40,39 @@ function Login({ setUser, setShuls }) {
         if (r.ok) {
           r.json().then(r => { setUser(r) })
         } else {
-          console.log('error response')
-          r.json().then(e => setErrors(Object.entries(e.error).flat()))
+          r.json().then(e => {
+            console.log('error response')
+            setErrors(Object.entries(e.error).flat())
+          })
         }
       })
   }
 
-  function handleLoginFormData(e) {
-    const { name, value } = e.target
-    setLoginFormData({ ...loginFormData, [name]: value })
-  }
-  function handleSignupFormData(e) {
-    const { name, value } = e.target
-    setSignupFormData({ ...signupFormData, [name]: value })
-  }
-
   function handleSignupSubmit(e) {
     e.preventDefault()
+    const body = {
+      username: signupFormData.username,
+      password: signupFormData.password,
+      password_confirmation: signupFormData.confirmPassword
+    }
+    fetch("/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(body)
+    })
+      .then(r => {
+        if (r.ok) {
+          r.json().then(r => { console.log(r) })
+        } else {
+          // console.log('error response')
+          r.json().then(e => {
+            console.log('error response', e)
+            setErrors(Object.entries(e.errors).flat())
+          })
+        }
+      })
   }
   return (
     <>
@@ -60,6 +86,7 @@ function Login({ setUser, setShuls }) {
             name="username"
             value={loginFormData.username}
             onChange={handleLoginFormData}
+            required
           />
         </div>
         <div>
@@ -70,6 +97,7 @@ function Login({ setUser, setShuls }) {
             name="password"
             value={loginFormData.password}
             onChange={handleLoginFormData}
+            required
           />
         </div>
         <button type="submit">Login</button>
@@ -86,6 +114,7 @@ function Login({ setUser, setShuls }) {
             name="username"
             value={signupFormData.username}
             onChange={handleSignupFormData}
+            required
           />
         </div>
         <div>
@@ -96,16 +125,18 @@ function Login({ setUser, setShuls }) {
             name="password"
             value={signupFormData.password}
             onChange={handleSignupFormData}
+            required
           />
         </div>
         <div>
-          <label htmlFor="confirmPassword">Password:</label>
+          <label htmlFor="confirmPassword">Confirm Password:</label>
           <input
             type="password"
             id="signup-confirmPassword"
             name="confirmPassword"
             value={signupFormData.confirmPassword}
             onChange={handleSignupFormData}
+            required
           />
         </div>
         <button type="submit">Sign up</button>
