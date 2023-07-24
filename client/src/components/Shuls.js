@@ -1,11 +1,13 @@
 import React, { } from "react";
 
-function Shuls(params) {
+function Shuls({ shuls }) {
+
   return (
     <>
       <h1>Shuls</h1>
-      <h1>DUMBY PAGE</h1>
-      <h1>BLAH BLAH BLAH</h1>
+      {shuls.map(shul => {
+        return <li>{shul.name}</li>
+      })}
     </>
   )
 }

@@ -52,7 +52,7 @@ function App() {
         </nav>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/shuls" element={<Shuls />} />
+          <Route path="/shuls" element={<Shuls shuls={shuls} />} />
           {/* <Route path="/signup" element={<Signup />} /> */}
           {/* <Route path="/add-shul" element={<AddShul />} />
           <Route path="/reviews" element={<Reviews />} /> */}
