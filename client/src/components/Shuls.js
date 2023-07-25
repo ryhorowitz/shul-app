@@ -43,6 +43,15 @@ function Shuls() {
       .then(r => r.json())
       .then(newShul => {
         console.log('new Shul response is ', newShul)
+        // update shuls array
+        setShuls([...shuls, newShul])
+      })
+      .then(() => {
+        setToggleForm(false)
+        setNewShulForm({
+          name: '',
+          movement: ''
+        })
       })
   }
   return (
