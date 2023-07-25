@@ -1,7 +1,12 @@
-import React, { } from "react";
+import React, { useEffect } from "react";
 
-function Shuls({ shuls }) {
+function Shuls({ shuls, setShuls }) {
 
+  useEffect(() => {
+    fetch('shuls')
+      .then(r => r.json())
+      .then(shuls => setShuls(shuls))
+  }, [])
   const shulList = shuls.map(shul => {
     return <li key={shul.id}>{shul.name}
       <ul>

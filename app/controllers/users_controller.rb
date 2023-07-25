@@ -16,6 +16,13 @@ class UsersController < ApplicationController
     render json: current_user
   end
 
+  def update
+    user = User.find_by(id: params[:id])
+    # byebug
+    user.update(username: params[:_json])
+    render json: user, status: :ok
+  end
+
   def destroy
     user = User.find_by(id: params[:id])
     if user

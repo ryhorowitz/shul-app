@@ -6,8 +6,9 @@ function Home() {
   const [updateUsername, setUpdateUsername] = useState('')
   const [toggleForm, setToggleForm] = useState(false)
 
-  function handleUpdateUser() {
-    fetch(`/users/:id`, {
+  function handleUpdateUser(e) {
+    e.preventDefault()
+    fetch(`/users/${user.id}`, {
       method: 'PATCH',
       headers: {
         "Content-Type": "application/json"
@@ -15,7 +16,14 @@ function Home() {
       body: JSON.stringify(updateUsername)
     })
       .then(r => r.json())
-      .then()
+      .then(updatedUser => {
+        console.log('updatedUser is ', updatedUser)
+        setUser(updatedUser)
+      })
+      .then(() => {
+        setUpdateUsername('')
+        setToggleForm(false)
+      })
     // hit the form toggle
   }
 
@@ -24,7 +32,6 @@ function Home() {
   return (
     <>
       <h1>Home</h1>
-      {/* Welcom so and so */}
       <h1>Welcome {user.username}</h1>
       <button onClick={handleToggle}>Update User</button>
       {toggleForm ?

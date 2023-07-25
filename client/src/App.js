@@ -24,13 +24,7 @@ function App() {
           res.json().then(user => setUser(user))
         }
       })
-
-    if (user) {
-      fetch('shuls')
-        .then(r => r.json())
-        .then(shuls => setShuls(shuls))
-    }
-  }, [user])
+  }, [])
 
   function deleteUser() {
     fetch(`/users/${user.id}`, { method: 'DELETE' })
@@ -64,7 +58,7 @@ function App() {
         </nav>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/shuls" element={<Shuls shuls={shuls} />} />
+          <Route path="/shuls" element={<Shuls shuls={shuls} setShuls={setShuls} />} />
         </Routes>
       </Router>
     </div>
