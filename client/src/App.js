@@ -8,7 +8,6 @@ import LogoutButton from './components/LogoutButton'
 import UserContext from './components/UserContext';
 
 function App() {
-  // eslint-disable-next-line
   const { user, setUser } = useContext(UserContext)
   const [shuls, setShuls] = useState([])
 
@@ -16,15 +15,13 @@ function App() {
     fetch('/logout', { method: 'DELETE' })
       .then(r => setUser(null))
       .then(() => setShuls([]))
-    // .then(() => redirect('/login'))
   }
-  // if users is set then fetch shuls? set users as dependency of useEffect
+
   useEffect(() => {
     if (user) {
       fetch('shuls')
         .then(r => r.json())
         .then(shuls => setShuls(shuls))
-
     }
   }, [user])
 
@@ -33,7 +30,6 @@ function App() {
       .then(r => setUser(null))
       .then(() => setShuls([]))
       .then(console.log(user.username, 'was deleted'))
-    // .then(() => redirect('/login'))
   }
 
   if (!user) return (
