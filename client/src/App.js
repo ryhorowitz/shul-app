@@ -18,6 +18,13 @@ function App() {
   }
 
   useEffect(() => {
+    fetch('/auth')
+      .then(res => {
+        if (res.ok) {
+          res.json().then(user => setUser(user))
+        }
+      })
+
     if (user) {
       fetch('shuls')
         .then(r => r.json())
