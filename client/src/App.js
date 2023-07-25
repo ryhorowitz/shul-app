@@ -5,10 +5,10 @@ import Login from './components/Login';
 import Shuls from './components/Shuls';
 import Home from './components/Home';
 import LogoutButton from './components/LogoutButton'
-import UserContext from './components/UserContext';
+import AppContext from './components/AppContext';
 
 function App() {
-  const { user, setUser } = useContext(UserContext)
+  const { user, setUser } = useContext(AppContext)
   const [shuls, setShuls] = useState([])
 
   function handleLogout() {
