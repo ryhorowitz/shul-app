@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Login from './components/Login';
-// import Signup from './components/Signup';
 import Shuls from './components/Shuls';
-// import AddShul from './components/AddShul';
-// import Reviews from './components/Reviews'
 import Home from './components/Home';
 import LogoutButton from './components/LogoutButton'
+import UserContext from './components/UserContext';
+
 function App() {
   // eslint-disable-next-line
-  const [user, setUser] = useState(null);
+  const { user, setUser } = useContext(UserContext)
   const [shuls, setShuls] = useState([])
 
   function handleLogout() {
     fetch('/logout', { method: 'DELETE' })
       .then(r => setUser(null))
       .then(() => setShuls([]))
+    // .then(() => redirect('/login'))
   }
   // if users is set then fetch shuls? set users as dependency of useEffect
   useEffect(() => {
@@ -33,11 +33,18 @@ function App() {
       .then(r => setUser(null))
       .then(() => setShuls([]))
       .then(console.log(user.username, 'was deleted'))
+    // .then(() => redirect('/login'))
   }
-  if (!user) return <Login setUser={setUser} />
+
+  if (!user) return (
+    <div>
+      <Login setUser={setUser} />
+    </div>
+  )
   return (
+
     <div className="App">
-      {user ? <LogoutButton logout={handleLogout} /> : <button>Login</button>}
+      <LogoutButton logout={handleLogout} />
       <div id='username-display'>Hi {user.username}!
         <button onClick={deleteUser}>Delete user?</button>
       </div>
@@ -50,23 +57,11 @@ function App() {
             <li>
               <Link to="/shuls">Shuls</Link>
             </li>
-            {/* <li> */}
-            {/* <Link to="/signup">Signup</Link> */}
-            {/* </li> */}
-            {/*<li>
-              <Link to="/add-shul">Add Shul</Link>
-            </li>
-            <li>
-              <Link to="/reviews">Reviews</Link>
-            </li> */}
           </ul>
         </nav>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/shuls" element={<Shuls shuls={shuls} />} />
-          {/* <Route path="/signup" element={<Signup />} /> */}
-          {/* <Route path="/add-shul" element={<AddShul />} />
-          <Route path="/reviews" element={<Reviews />} /> */}
         </Routes>
       </Router>
     </div>
