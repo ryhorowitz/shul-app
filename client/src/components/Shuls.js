@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
+import { useNavigate } from 'react-router-dom'
 import AppContext from './AppContext';
 import EditShulModal from './EditShulModal'
 
@@ -11,6 +12,7 @@ function Shuls() {
     movement: ''
   })
   const [editShul, setEditShul] = useState(null)
+  const navigate = useNavigate()
 
   useEffect(() => {
     // console.log('use effect is running in shuls')
@@ -92,6 +94,10 @@ function Shuls() {
         <button
           onClick={() => handleEditShul(shul)}
           className={shul.id}>Update</button>
+        <button
+          onClick={() => navigate('/reviews')}
+          className={shul.id}
+        >See Reviews</button>
       </ul>
     </li>
   })

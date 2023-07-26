@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, Link, redirect } from 'react-router-dom';
-import Login from './components/Login';
-import Shuls from './components/Shuls';
-import Home from './components/Home';
+import Login from './components/Login'
+import Shuls from './components/Shuls'
+import Home from './components/Home'
 import LogoutButton from './components/LogoutButton'
-import AppContext from './components/AppContext';
+import Reviews from './components/Reviews'
+import AppContext from './components/AppContext'
 
 function App() {
   const { user, setUser } = useContext(AppContext)
@@ -59,11 +60,15 @@ function App() {
             <li>
               <Link to="/shuls">Shuls</Link>
             </li>
+            <li>
+              <Link to="/reviews">Reviews</Link>
+            </li>
           </ul>
         </nav>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/shuls" element={<Shuls shuls={shuls} setShuls={setShuls} />} />
+          <Route path='/reviews' element={<Reviews />} />
         </Routes>
       </Router>
     </div>
