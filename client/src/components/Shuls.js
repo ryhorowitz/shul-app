@@ -11,15 +11,20 @@ function Shuls() {
   })
 
   useEffect(() => {
+    console.log('use effect is running in shuls')
     fetch('shuls')
       .then(r => r.json())
       .then(shuls => setShuls(shuls))
   }, [])
+
   const shulList = shuls.map(shul => {
     return <li key={shul.id}>{shul.name}
       <ul>
         <li>movement: {shul.movement}</li>
         <li>number of reviews: {shul.reviews.length}</li>
+        <button
+          onClick={handleDeleteShul}
+          id={shul.id}>Delete</button>
       </ul>
     </li>
   })
@@ -52,6 +57,20 @@ function Shuls() {
           name: '',
           movement: ''
         })
+      })
+  }
+  function filterOutDeletedShul(shulsArray, e) {
+    return shulsArray.filter(shul => shul.id !== e.target.id)
+  }
+  function handleDeleteShul(e) {
+    console.log(e.target.id)
+    fetch(`/shuls/${e.target.id}`, { method: 'DELETE' })
+      .then(res => {
+        if (res.ok) {
+          res.json().then(() => {
+            setShuls(filterOutDeletedShul(shuls, e))
+          })
+        }
       })
   }
   return (
