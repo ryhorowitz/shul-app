@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :users, only: %i[create show destroy update]
-  resources :shuls, only: %i[index create destroy]
+  resources :shuls, only: %i[index create destroy update]
 
   get '/auth', to: 'users#show'
   post '/login', to: 'sessions#create'

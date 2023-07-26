@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, redirect } from 'react-router-dom';
 import Login from './components/Login';
 import Shuls from './components/Shuls';
 import Home from './components/Home';
@@ -10,20 +10,25 @@ import AppContext from './components/AppContext';
 function App() {
   const { user, setUser } = useContext(AppContext)
   const [shuls, setShuls] = useState([])
+  // const [sessionId, setSessionId] = useState(null)
 
   function handleLogout() {
     fetch('/logout', { method: 'DELETE' })
-      .then(r => setUser(null))
+      .then(() => redirect('/'))
       .then(() => setShuls([]))
+      .then(() => setUser(null))
   }
 
   useEffect(() => {
+
     fetch('/auth')
       .then(res => {
         if (res.ok) {
           res.json().then(user => setUser(user))
         }
       })
+      .catch(e => console.error('error is', e))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   function deleteUser() {

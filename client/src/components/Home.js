@@ -3,7 +3,7 @@ import UserContext from "./AppContext";
 
 function Home() {
   const { user, setUser } = useContext(UserContext)
-  const [updateUsername, setUpdateUsername] = useState('')
+  const [updateUsername, setUpdateUsername] = useState(user.username)
   const [toggleForm, setToggleForm] = useState(false)
 
   function handleUpdateUser(e) {
@@ -24,7 +24,6 @@ function Home() {
         setUpdateUsername('')
         setToggleForm(false)
       })
-    // hit the form toggle
   }
 
   function handleToggle() { setToggleForm(toggleForm => !toggleForm) }

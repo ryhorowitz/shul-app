@@ -14,6 +14,17 @@ class ShulsController < ApplicationController
     end
   end
 
+  def update
+    shul = Shul.find_by(id: params[:id])
+    byebug
+    if shul
+      shul.update(shul_params)
+      render json: shul, status: :accepted
+    else
+      render json: { error: 'Shul not found' }, status: :not_found
+    end
+  end
+
   def destroy
     shul = Shul.find_by(id: params[:id])
     if shul
