@@ -5,18 +5,18 @@ import Login from './components/Login'
 import Shuls from './components/Shuls'
 import Home from './components/Home'
 import LogoutButton from './components/LogoutButton'
-import Reviews from './components/Reviews'
+import ReviewDetail from './components/ReviewDetail'
 import AppContext from './components/AppContext'
 
 function App() {
   const { user, setUser } = useContext(AppContext)
-  const [shuls, setShuls] = useState([])
+  // const [shuls, setShuls] = useState([])
   // const [sessionId, setSessionId] = useState(null)
 
   function handleLogout() {
     fetch('/logout', { method: 'DELETE' })
       .then(() => redirect('/'))
-      .then(() => setShuls([]))
+      // .then(() => setShuls([]))
       .then(() => setUser(null))
   }
 
@@ -35,7 +35,7 @@ function App() {
   function deleteUser() {
     fetch(`/users/${user.id}`, { method: 'DELETE' })
       .then(r => setUser(null))
-      .then(() => setShuls([]))
+      // .then(() => setShuls([]))
       .then(console.log(user.username, 'was deleted'))
   }
 
@@ -61,14 +61,14 @@ function App() {
               <Link to="/shuls">Shuls</Link>
             </li>
             <li>
-              <Link to="/reviews">Reviews</Link>
+              <Link to="/reviews/:id">Reviews</Link>
             </li>
           </ul>
         </nav>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/shuls" element={<Shuls shuls={shuls} setShuls={setShuls} />} />
-          <Route path='/reviews' element={<Reviews />} />
+          <Route path="/shuls" element={<Shuls />} />
+          <Route path='/reviews/:id' element={<ReviewDetail />} />
         </Routes>
       </Router>
     </div>
