@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
+import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import Login from './components/Login'
 import Shuls from './components/Shuls'
 import Home from './components/Home'
@@ -9,7 +9,7 @@ import ReviewDetail from './components/ReviewDetail'
 import AppContext from './components/AppContext'
 
 function App() {
-  const { user, setUser, shuls, setShuls } = useContext(AppContext)
+  const { user, setUser } = useContext(AppContext)
   const navigate = useNavigate()
   function handleLogout() {
     fetch('/logout', { method: 'DELETE' })

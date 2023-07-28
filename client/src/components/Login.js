@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-import { redirect } from "react-router-dom"
 
 function Login({ setUser }) {
   // eslint-disable-next-line
@@ -40,7 +39,7 @@ function Login({ setUser }) {
       .then(r => {
         if (r.ok) {
           r.json().then(user => {
-            // redirect('/')
+
             setUser(user)
           })
         } else {

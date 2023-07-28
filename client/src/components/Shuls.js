@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from 'react-router-dom'
 import AppContext from './AppContext';
 import EditShulModal from './EditShulModal'
