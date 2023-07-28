@@ -85,7 +85,7 @@ function Shuls() {
           onClick={() => handleEditShul(shul)}
           className={shul.id}>Update</button>
         <button
-          onClick={() => navigate(`/reviews/${shul.id}`)}
+          onClick={() => navigate(`/shuls/${shul.id}/reviews`)}
           className={shul.id}
         >See Reviews</button>
       </ul>

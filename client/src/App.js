@@ -5,7 +5,7 @@ import Login from './components/Login'
 import Shuls from './components/Shuls'
 import Home from './components/Home'
 import LogoutButton from './components/LogoutButton'
-import ReviewDetail from './components/ReviewDetail'
+import ShulReviews from './components/ShulReviews'
 import AppContext from './components/AppContext'
 
 function App() {
@@ -63,7 +63,9 @@ function App() {
       <Routes>
         <Route path="/home" element={<Home />} />
         <Route path="/shuls" element={<Shuls />} />
-        <Route path='/reviews/:id' element={<ReviewDetail />} />
+        {/* update to route of /shuls/:id/reviews */}
+        <Route path='/shuls/:id/reviews' element={<ShulReviews />} />
+        {/* <Route path='/review' */}
       </Routes>
 
     </div>

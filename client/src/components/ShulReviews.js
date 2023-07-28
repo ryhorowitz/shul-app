@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react"
 import { useNavigate, useParams } from 'react-router-dom'
 import AppContext from "./AppContext"
 
-function ReviewDetail() {
+function ShulReviews() {
   // const navigate = useNavigate()
   const { shuls } = useContext(AppContext)
   const params = useParams()
@@ -22,7 +22,7 @@ function ReviewDetail() {
 
   const reviews = shul.reviews.map(review => {
     return <li key={review.id}>
-      <h4>{review.title}</h4>
+      <h4>{review.title} by: {review.user.username}</h4>
       <p>{review.body}</p>
     </li>
   })
@@ -34,4 +34,4 @@ function ReviewDetail() {
   )
 }
 
-export default ReviewDetail
+export default ShulReviews
