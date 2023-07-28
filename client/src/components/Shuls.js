@@ -14,13 +14,7 @@ function Shuls() {
   const [editShul, setEditShul] = useState(null)
   const navigate = useNavigate()
 
-  useEffect(() => {
-    // console.log('use effect is running in shuls')
-    fetch('shuls')
-      .then(r => r.json())
-      .then(shuls => setShuls(shuls))
-      .catch(e => console.error('error is', e))
-  }, [setShuls])
+
 
   function handleChangeNewShulForm(e) {
     const { name, value } = e.target
@@ -39,11 +33,7 @@ function Shuls() {
       body: JSON.stringify(newShulForm)
     })
       .then(r => r.json())
-      .then(newShul => {
-        console.log('new Shul response is ', newShul)
-        // update shuls array
-        setShuls([...shuls, newShul])
-      })
+      .then(newShul => setShuls([...shuls, newShul]))
       .then(() => {
         setToggleAddShulForm(false)
         setNewShulForm({
@@ -60,12 +50,12 @@ function Shuls() {
   const handleSave = (editedShul) => {
     const updatedShuls = shuls.map((shul) =>
       shul.id === editedShul.id ? editedShul : shul
-    );
-    setShuls(updatedShuls);
+    )
+    setShuls(updatedShuls)
   };
 
   const handleModalClose = () => {
-    setEditShul(null);
+    setEditShul(null)
   };
 
   function filterOutDeletedShul(shulsArray, e) {

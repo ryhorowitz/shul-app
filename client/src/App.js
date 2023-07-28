@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Routes, Route, Link, redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
 import Login from './components/Login'
 import Shuls from './components/Shuls'
 import Home from './components/Home'
@@ -9,19 +9,16 @@ import ReviewDetail from './components/ReviewDetail'
 import AppContext from './components/AppContext'
 
 function App() {
-  const { user, setUser } = useContext(AppContext)
-  // const [shuls, setShuls] = useState([])
-  // const [sessionId, setSessionId] = useState(null)
-
+  const { user, setUser, shuls, setShuls } = useContext(AppContext)
+  const navigate = useNavigate()
   function handleLogout() {
     fetch('/logout', { method: 'DELETE' })
-      .then(() => redirect('/'))
       // .then(() => setShuls([]))
       .then(() => setUser(null))
+      .then(() => navigate('/home'))
   }
 
   useEffect(() => {
-
     fetch('/auth')
       .then(res => {
         if (res.ok) {
@@ -51,26 +48,23 @@ function App() {
       <div id='username-display'>Hi {user.username}!
         <button onClick={deleteUser}>Delete user?</button>
       </div>
-      <Router>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/shuls">Shuls</Link>
-            </li>
-            <li>
-              <Link to="/reviews/:id">Reviews</Link>
-            </li>
-          </ul>
-        </nav>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/shuls" element={<Shuls />} />
-          <Route path='/reviews/:id' element={<ReviewDetail />} />
-        </Routes>
-      </Router>
+
+      <nav>
+        <ul>
+          <li>
+            <Link to="/home">Home</Link>
+          </li>
+          <li>
+            <Link to="/shuls">Shuls</Link>
+          </li>
+        </ul>
+      </nav>
+      <Routes>
+        <Route path="/home" element={<Home />} />
+        <Route path="/shuls" element={<Shuls />} />
+        <Route path='/reviews/:id' element={<ReviewDetail />} />
+      </Routes>
+
     </div>
   );
 }

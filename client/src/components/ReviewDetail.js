@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react"
+import React, { useContext } from "react"
 import { useParams } from 'react-router-dom'
 import AppContext from "./AppContext"
 
@@ -6,24 +6,22 @@ function ReviewDetail() {
   const { shuls } = useContext(AppContext)
   const params = useParams()
   const id = Number(params.id)
-
-  // find reviews for shul with id of params id
-
-  // find shul
-  console.log('shuls are', shuls)
   const shul = shuls.find(shul => shul.id === id)
-  console.log('find method', shuls.find(shul => shul.id === id))
-  console.log('shul is,', shul)
+
+  // if shuls.reviews is empty do...
+  if (shul.reviews.length === 0) {
+    return (<h1>There are no reviews for {shul.name}</h1>)
+  }
+
   const reviews = shul.reviews.map(review => {
-    return <li>
+    return <li key={review.id}>
       <h4>{review.title}</h4>
       <p>{review.body}</p>
     </li>
   })
-
   return (
     <>
-      <h1>Reviews for id {params.id}</h1>
+      <h1>Reviews for {shul.name}</h1>
       <ol>{reviews}</ol>
     </>
   )

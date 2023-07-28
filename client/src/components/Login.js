@@ -39,11 +39,10 @@ function Login({ setUser }) {
     })
       .then(r => {
         if (r.ok) {
-          r.json().then(r => {
-            redirect('/')
-            setUser(r)
+          r.json().then(user => {
+            // redirect('/')
+            setUser(user)
           })
-
         } else {
           r.json().then(e => {
             console.log('error response')
