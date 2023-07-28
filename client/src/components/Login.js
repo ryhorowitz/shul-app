@@ -1,6 +1,8 @@
 import React, { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 function Login({ setUser }) {
+  const navigate = useNavigate()
   // eslint-disable-next-line
   const [errors, setErrors] = useState([])
   const [loginFormData, setLoginFormData] = useState({
@@ -39,8 +41,8 @@ function Login({ setUser }) {
       .then(r => {
         if (r.ok) {
           r.json().then(user => {
-
             setUser(user)
+            navigate('/home')
           })
         } else {
           r.json().then(e => {

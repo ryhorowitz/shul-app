@@ -11,11 +11,11 @@ import AppContext from './components/AppContext'
 function App() {
   const { user, setUser } = useContext(AppContext)
   const navigate = useNavigate()
+
   function handleLogout() {
     fetch('/logout', { method: 'DELETE' })
-      // .then(() => setShuls([]))
       .then(() => setUser(null))
-      .then(() => navigate('/home'))
+      .then(() => navigate('/login'))
   }
 
   useEffect(() => {
@@ -37,9 +37,10 @@ function App() {
   }
 
   if (!user) return (
-    <div>
+
+    < div >
       <Login setUser={setUser} />
-    </div>
+    </div >
   )
   return (
 
