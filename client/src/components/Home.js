@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import UserContext from "./AppContext";
+import UserReviews from "./UserReviews";
 
 function Home() {
   const { user, setUser } = useContext(UserContext)
@@ -48,6 +49,7 @@ function Home() {
           <button type="submit">Update</button>
         </form>
         : ''}
+      <UserReviews />
     </>
   )
 }

@@ -1,16 +1,23 @@
-import React, { useContext } from "react"
-import { useParams } from 'react-router-dom'
+import React, { useContext, useEffect } from "react"
+import { useNavigate, useParams } from 'react-router-dom'
 import AppContext from "./AppContext"
 
 function ReviewDetail() {
+  // const navigate = useNavigate()
   const { shuls } = useContext(AppContext)
   const params = useParams()
   const id = Number(params.id)
   const shul = shuls.find(shul => shul.id === id)
 
-  // if shuls.reviews is empty do...
-  if (shul.reviews.length === 0) {
-    return (<h1>There are no reviews for {shul.name}</h1>)
+  // useEffect(() => {
+  //   if (shul === undefined) {
+  //     navigate('/shuls')
+  //   }
+  // }, [])
+  console.log('shul is', shul)
+  // ****WHY does this fix my memory leak bug??
+  if (shul === undefined) {
+    return (<h1>There are no reviews for</h1>)
   }
 
   const reviews = shul.reviews.map(review => {

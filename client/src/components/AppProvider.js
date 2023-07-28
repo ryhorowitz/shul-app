@@ -8,9 +8,10 @@ const AppProvider = ({ children }) => {
   // You can add any user-related functions here to update the user state
   //put useEffect for shuls data
   useEffect(() => {
-    fetch('shuls')
+    fetch('/shuls')
       .then(res => {
         if (res.ok) {
+          console.log('app provider shul useEffect')
           res.json().then(shuls => setShuls(shuls))
         }
       })
