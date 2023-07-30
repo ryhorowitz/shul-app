@@ -1,12 +1,13 @@
 import React, { useContext, useEffect } from 'react';
 import './App.css';
 import { Routes, Route, Link, useNavigate } from 'react-router-dom';
+import AppContext from './components/AppContext'
 import Login from './components/Login'
 import Shuls from './components/Shuls'
 import Home from './components/Home'
 import LogoutButton from './components/LogoutButton'
 import ShulReviews from './components/ShulReviews'
-import AppContext from './components/AppContext'
+import Reviews from './components/Reviews';
 
 function App() {
   const { user, setUser } = useContext(AppContext)
@@ -58,6 +59,9 @@ function App() {
           <li>
             <Link to="/shuls">Shuls</Link>
           </li>
+          <li>
+            <Link to="/reviews">Write A Review</Link>
+          </li>
         </ul>
       </nav>
       <Routes>
@@ -65,7 +69,7 @@ function App() {
         <Route path="/shuls" element={<Shuls />} />
         {/* update to route of /shuls/:id/reviews */}
         <Route path='/shuls/:id/reviews' element={<ShulReviews />} />
-        {/* <Route path='/review' */}
+        <Route path='/reviews' element={<Reviews />} />
       </Routes>
 
     </div>

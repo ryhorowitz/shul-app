@@ -105,7 +105,7 @@ function Shuls() {
       )}
       <ol>{shulList}</ol>
 
-      <button onClick={() => setToggleAddShulForm(!toggleAddShulForm)}>Add a Shull</button>
+      <button onClick={() => setToggleAddShulForm(true)}>Add a Shull</button>
       {toggleAddShulForm ?
         <>
           <h1>Add New Shul</h1>
@@ -133,6 +133,7 @@ function Shuls() {
               ></input>
             </div >
             <button type="submit">Submit</button>
+            <button onClick={() => setToggleAddShulForm(false)}>Cancel</button>
           </form>
         </>
 
