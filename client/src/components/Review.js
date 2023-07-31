@@ -1,6 +1,8 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
+import UserContext from "./AppContext";
 
 function Reviews({ review }) {
+  const { user, setUser } = useContext(UserContext)
   const [toggleEditModal, setToggleEditModal] = useState(false)
   const [editModal, setEditModal] = useState({
     title: review.title,
@@ -9,17 +11,63 @@ function Reviews({ review }) {
 
   function handleChange(e) {
     const { name, value } = e.target
-
     setEditModal({
       ...editModal,
       [name]: value
     })
   }
-  function handleDeleteReview() {
 
+  function filterOutDeletedReview(id) {
+    return user.reviews.filter(review => review.id !== id)
+  }
+  function handleDeleteReview() {
+    console.log('handleDelete clicked')
+    fetch(`/reviews/${review.id}`, { method: 'DELETE' })
+      .then(() => {
+        // delete review from user
+        // filterOutDeletedReview()
+        setUser({
+          ...user,
+          reviews: filterOutDeletedReview(review.id)
+        })
+      })
   }
 
-  function handleEditReview() {
+  function updateReviewsArray(reviews, updatedReview) {
+    const updatedReviews = reviews.map(review => {
+      if (review.id === updatedReview.id) {
+        return updatedReview
+      }
+      return review
+    })
+
+    return updatedReviews
+  }
+  function handleEditReview(e) {
+    e.preventDefault()
+
+    fetch(`/reviews/${review.id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ ...editModal })
+    })
+      .then(r => r.json())
+      .then(updatedReview => {
+        // console.log('update updatedReview', updatedReview)
+        setUser({
+          ...user,
+          reviews: updateReviewsArray(user.reviews, updatedReview)
+        })
+      })
+      .then(() => {
+        setEditModal({
+          title: review.title,
+          body: review.body
+        })
+        setToggleEditModal(false)
+      })
 
   }
 
@@ -67,7 +115,7 @@ function Reviews({ review }) {
       }
       <div>
         <button onClick={() => setToggleEditModal(!toggleEditModal)}>Edit</button>
-        <button onClick={() => handleDeleteReview}>Delete</button>
+        <button onClick={handleDeleteReview}>Delete</button>
       </div>
     </>
   )
