@@ -11,7 +11,7 @@ const AppProvider = ({ children }) => {
     fetch('/shuls')
       .then(res => {
         if (res.ok) {
-          console.log('app provider shul useEffect')
+          // console.log('app provider shul useEffect')
           res.json().then(shuls => setShuls(shuls))
         }
       })

@@ -7,7 +7,7 @@ import Shuls from './components/Shuls'
 import Home from './components/Home'
 import LogoutButton from './components/LogoutButton'
 import ShulReviews from './components/ShulReviews'
-import Reviews from './components/Reviews';
+import CreateReview from './components/CreateReview';
 
 function App() {
   const { user, setUser } = useContext(AppContext)
@@ -60,7 +60,7 @@ function App() {
             <Link to="/shuls">Shuls</Link>
           </li>
           <li>
-            <Link to="/reviews">Write A Review</Link>
+            <Link to="/new-review">Write A Review</Link>
           </li>
         </ul>
       </nav>
@@ -69,7 +69,7 @@ function App() {
         <Route path="/shuls" element={<Shuls />} />
         {/* update to route of /shuls/:id/reviews */}
         <Route path='/shuls/:id/reviews' element={<ShulReviews />} />
-        <Route path='/reviews' element={<Reviews />} />
+        <Route path='/reviews' element={<CreateReview />} />
       </Routes>
 
     </div>

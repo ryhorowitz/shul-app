@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
+  resources :reviews, only: %i[create show]
   resources :users, only: %i[create show destroy update]
   resources :shuls, only: %i[index create destroy update]
-  resources :reviews, only: %i[show]
 
   get '/auth', to: 'users#show'
   post '/login', to: 'sessions#create'
