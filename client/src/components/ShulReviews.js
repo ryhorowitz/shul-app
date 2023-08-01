@@ -1,6 +1,6 @@
 import React, { useContext } from "react"
 import { useParams } from 'react-router-dom'
-import AppContext from "./AppContext"
+import AppContext from "../AppContext"
 
 function ShulReviews() {
   const { shuls } = useContext(AppContext)

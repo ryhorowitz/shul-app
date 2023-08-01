@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react"
-import AppContext from "./AppContext"
+import AppContext from "../AppContext"
 import { useNavigate } from "react-router-dom"
 
 function CreateReview() {
@@ -7,7 +7,7 @@ function CreateReview() {
   const [reviewForm, setReviewForm] = useState({
     // if I refresh I error out because shuls[0] is undefined 
     // how do I setState to based off of a value that should be passed in through AppContext
-    shul: shuls[0],
+    shul: shuls[0].name,
     title: '',
     body: ''
   })

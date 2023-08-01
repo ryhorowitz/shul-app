@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import UserContext from "./AppContext";
+import UserContext from "../AppContext";
 import UserReviews from "./UserReviews";
 
 function Home() {

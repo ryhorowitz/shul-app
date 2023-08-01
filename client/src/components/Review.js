@@ -1,5 +1,5 @@
 import { useState, useContext } from "react"
-import UserContext from "./AppContext";
+import UserContext from "../AppContext";
 
 function Reviews({ review }) {
   const { user, setUser } = useContext(UserContext)
@@ -24,8 +24,6 @@ function Reviews({ review }) {
     console.log('handleDelete clicked')
     fetch(`/reviews/${review.id}`, { method: 'DELETE' })
       .then(() => {
-        // delete review from user
-        // filterOutDeletedReview()
         setUser({
           ...user,
           reviews: filterOutDeletedReview(review.id)
@@ -55,7 +53,6 @@ function Reviews({ review }) {
     })
       .then(r => r.json())
       .then(updatedReview => {
-        // console.log('update updatedReview', updatedReview)
         setUser({
           ...user,
           reviews: updateReviewsArray(user.reviews, updatedReview)
@@ -87,25 +84,29 @@ function Reviews({ review }) {
           <form onSubmit={handleEditReview}>
             <label htmlFor="title">Title: </label>
             <input
+              style={{ 'width': '250px' }}
               type="text"
               id='title'
               name="title"
+
               value={editModal.title}
               onChange={handleChange}
             ></input>
-            <label htmlFor="body">Review: </label>
-            <textarea
-              type="text"
-              id='body'
-              name="body"
-              rows="8"
-              cols="50"
-              value={editModal.body}
-              onChange={handleChange}
-            ></textarea>
+            <div>
+              <label htmlFor="body">Review: </label>
+              <textarea
+                type="text"
+                id='body'
+                name="body"
+                rows="8"
+                cols="50"
+                value={editModal.body}
+                onChange={handleChange}
+              ></textarea>
+            </div>
             <button type='submit'>Submit</button>
           </form>
-        </div>
+        </div >
         : <div>
           {reviewHeader}
           <h3>{review.title}</h3>

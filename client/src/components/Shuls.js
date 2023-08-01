@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from 'react-router-dom'
-import AppContext from './AppContext';
+import AppContext from '../AppContext';
 import EditShulModal from './EditShulModal'
 
 function Shuls() {

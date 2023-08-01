@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import './App.css';
 import { Routes, Route, Link, useNavigate } from 'react-router-dom';
-import AppContext from './components/AppContext'
+import AppContext from './AppContext'
 import Login from './components/Login'
 import Shuls from './components/Shuls'
 import Home from './components/Home'
@@ -33,7 +33,6 @@ function App() {
   function deleteUser() {
     fetch(`/users/${user.id}`, { method: 'DELETE' })
       .then(r => setUser(null))
-      // .then(() => setShuls([]))
       .then(console.log(user.username, 'was deleted'))
   }
 
@@ -69,7 +68,7 @@ function App() {
         <Route path="/shuls" element={<Shuls />} />
         {/* update to route of /shuls/:id/reviews */}
         <Route path='/shuls/:id/reviews' element={<ShulReviews />} />
-        <Route path='/reviews' element={<CreateReview />} />
+        <Route path='/new-review' element={<CreateReview />} />
       </Routes>
 
     </div>
