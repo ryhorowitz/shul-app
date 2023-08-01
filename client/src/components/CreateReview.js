@@ -7,7 +7,7 @@ function CreateReview() {
   const [reviewForm, setReviewForm] = useState({
     // if I refresh I error out because shuls[0] is undefined 
     // how do I setState to based off of a value that should be passed in through AppContext
-    shul: shuls[0].name,
+    shul: '',
     title: '',
     body: ''
   })
@@ -23,7 +23,6 @@ function CreateReview() {
   }
 
   function handleShulChange(e) {
-    console.log('handleShuls change, ', e.target.value)
     setReviewForm({
       ...reviewForm,
       shul: e.target.value
@@ -32,7 +31,10 @@ function CreateReview() {
 
   function handleSubmitReview(e) {
     e.preventDefault()
-
+    if (!reviewForm.shul) {
+      alert('Please choose a shul')
+      return
+    }
     const review = {
       user_id: user.id,
       title: reviewForm.title,
@@ -70,8 +72,9 @@ function CreateReview() {
     return shul.id
   }
   const shulOptions = shuls.map(shul => {
-    return <option key={shul.id} value={shul.name}> {shul.name}</option>
+    return <option key={shul.id} value={shul.name}>{shul.name}</option>
   })
+  shulOptions.unshift(<option key={0} value={''}>-Please select a shul-</option>)
 
   return (
     <>

@@ -21,14 +21,16 @@ function Reviews({ review }) {
     return user.reviews.filter(review => review.id !== id)
   }
   function handleDeleteReview() {
-    console.log('handleDelete clicked')
-    fetch(`/reviews/${review.id}`, { method: 'DELETE' })
+    // console.log('handleDelete clicked') need to add user.id
+    fetch(`/users/${user.id}/reviews/${review.id}`, { method: 'DELETE' })
+      // add res.ok
       .then(() => {
         setUser({
           ...user,
           reviews: filterOutDeletedReview(review.id)
         })
       })
+      .catch(e => console.error('ERROR', e))
   }
 
   function updateReviewsArray(reviews, updatedReview) {
@@ -44,7 +46,7 @@ function Reviews({ review }) {
   function handleEditReview(e) {
     e.preventDefault()
 
-    fetch(`/reviews/${review.id}`, {
+    fetch(`/users/${user.id}/reviews/${review.id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json'

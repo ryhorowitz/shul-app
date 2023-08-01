@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  resources :reviews, only: %i[create show update destroy]
+  resources :users do
+    resources :reviews, only: %i[destroy update]
+  end
+  resources :reviews, only: %i[create show destroy update]
   resources :users, only: %i[create show destroy update]
   resources :shuls, only: %i[index create destroy update]
 

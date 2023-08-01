@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom"
 function Login({ setUser }) {
   const navigate = useNavigate()
   // eslint-disable-next-line
-  const [errors, setErrors] = useState([])
+  const [loginErrors, setLoginErrors] = useState([])
+  const [signupErrors, setSignupErrors] = useState([])
   const [loginFormData, setLoginFormData] = useState({
     username: '',
     password: ''
@@ -46,8 +47,8 @@ function Login({ setUser }) {
           })
         } else {
           r.json().then(e => {
-            console.log('error response')
-            setErrors(Object.entries(e.error).flat())
+            console.log('error response', e)
+            setLoginErrors(Object.entries(e.error))
           })
         }
       })
@@ -74,14 +75,15 @@ function Login({ setUser }) {
             setUser(r)
           })
         } else {
-          console.log('error response')
           r.json().then(e => {
             console.log('error response', e)
-            setErrors(Object.entries(e.errors).flat())
+            // console.log('flattening', e.errors.flat())
+            setSignupErrors(Object.entries(e.errors).flat())
           })
         }
       })
   }
+
   return (
     <>
       <h1>Login</h1>
@@ -108,6 +110,13 @@ function Login({ setUser }) {
             required
           />
         </div>
+        {loginErrors.length > 0 && (
+          <ul style={{ color: "red" }}>
+            {loginErrors.map((error) => (
+              <li key={error}>{error}</li>
+            ))}
+          </ul>
+        )}
         <button type="submit">Login</button>
       </form>
       <br></br>
@@ -115,7 +124,8 @@ function Login({ setUser }) {
       <h1>Signup</h1>
 
       <form onSubmit={handleSignupSubmit}>
-        <div><label htmlFor="username">Username:</label>
+        <div>
+          <label htmlFor="username">Username:</label>
           <input
             type="text"
             id="signup-username"
@@ -147,6 +157,13 @@ function Login({ setUser }) {
             required
           />
         </div>
+        {signupErrors.length > 0 && (
+          <ul style={{ color: "red" }}>
+            {signupErrors.map((error) => (
+              <li key={error}>{error}</li>
+            ))}
+          </ul>
+        )}
         <button type="submit">Sign up</button>
       </form>
 

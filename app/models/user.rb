@@ -5,4 +5,8 @@ class User < ApplicationRecord
 
   validates :username, uniqueness: true
   validates :username, length: { in: 4..20 }
+
+  def unique_shuls
+    shuls.uniq
+  end
 end
