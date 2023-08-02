@@ -47,8 +47,8 @@ function Login({ setUser }) {
           })
         } else {
           r.json().then(e => {
-            console.log('error response', e)
-            setLoginErrors(Object.entries(e.error))
+            console.log('error response', e.error)
+            setLoginErrors(Object.values(e).flat())
           })
         }
       })
@@ -78,7 +78,7 @@ function Login({ setUser }) {
           r.json().then(e => {
             console.log('error response', e)
             // console.log('flattening', e.errors.flat())
-            setSignupErrors(Object.entries(e.errors).flat())
+            setSignupErrors(Object.values(e.errors))
           })
         }
       })
