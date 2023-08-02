@@ -8,10 +8,7 @@ class ReviewsController < ApplicationController
   end
 
   def update
-    # i should be searching through the users reviews like in the create method
-    user = find_user
-    review = user.reviews.find(params[:id])
-    # byebug
+    review = find_review
     review.update!(
       title: params[:title],
       body: params[:body]
@@ -21,10 +18,7 @@ class ReviewsController < ApplicationController
   end
 
   def destroy
-    # i should be searching through the users reviews like in the create method
-    # byebug
-    user = find_user
-    review = user.reviews.find(params[:id])
+    review = find_review
     review.destroy
     head :no_content
   end
@@ -39,7 +33,12 @@ class ReviewsController < ApplicationController
     User.find(params[:user_id])
   end
 
+  def find_review
+    user = find_user
+    user.reviews.find(params[:id])
+  end
+
   def render_unprocessable_entity_response(invalid)
-    render json: { errors: invalid.record.errors }, status: :unprocessable_entity
+    render json: { errors: invalid.record.errors.full_messages }, status: :unprocessable_entity
   end
 end

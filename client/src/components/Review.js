@@ -21,7 +21,6 @@ function Reviews({ review }) {
     return user.reviews.filter(review => review.id !== id)
   }
   function handleDeleteReview() {
-    // console.log('handleDelete clicked') need to add user.id
     fetch(`/users/${user.id}/reviews/${review.id}`, { method: 'DELETE' })
       // add res.ok
       .then(() => {

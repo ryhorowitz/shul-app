@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom"
 
 function CreateReview() {
   const { shuls, user, setUser } = useContext(AppContext)
+  const [errors, setErrors] = useState([])
   const [reviewForm, setReviewForm] = useState({
     // if I refresh I error out because shuls[0] is undefined 
     // how do I setState to based off of a value that should be passed in through AppContext
@@ -29,7 +30,7 @@ function CreateReview() {
     })
   }
 
-  function handleSubmitReview(e) {
+  async function handleSubmitReview(e) {
     e.preventDefault()
     if (!reviewForm.shul) {
       alert('Please choose a shul')
@@ -41,36 +42,37 @@ function CreateReview() {
       body: reviewForm.body,
       shul_id: findShulId(reviewForm.shul)
     }
-    fetch(`/reviews`, {
+    const response = await fetch(`/reviews`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(review)
     })
-      .then(r => r.json()) //res.ok? error handling here?
-      .then(newReview => {
-        setUser({
-          ...user,
-          reviews: [...user.reviews, newReview]
-        })
+
+    const newReview = await response.json()
+    if (response.ok) {
+      setUser({
+        ...user,
+        reviews: [...user.reviews, newReview]
       })
-      .then(() => {
-        setReviewForm({
-          shul: shuls[0].name,
-          title: '',
-          body: ''
-        })
+      setReviewForm({
+        shul: shuls[0].name,
+        title: '',
+        body: ''
       })
-      .then(() => {
-        navigate('/home')
-      })
+      navigate('/home')
+    } else {
+      console.log(newReview)
+      setErrors(Object.values(newReview.errors))
+    }
   }
+
   function findShulId(reviewFormShulName) {
     const shul = shuls.find(shul => shul.name === reviewFormShulName)
-    console.log('shul is', shul)
     return shul.id
   }
+
   const shulOptions = shuls.map(shul => {
     return <option key={shul.id} value={shul.name}>{shul.name}</option>
   })
@@ -113,6 +115,13 @@ function CreateReview() {
             onChange={handleChange}
           ></textarea>
         </div>
+        {errors.length > 0 && (
+          <ul style={{ color: "red" }}>
+            {errors.map((error) => (
+              <li key={error}> {error} </li>
+            ))}
+          </ul>
+        )}
         <button type="submit">Submit</button>
       </form>
     </>
