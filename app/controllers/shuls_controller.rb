@@ -1,7 +1,6 @@
 class ShulsController < ApplicationController
   def index
     shuls = Shul.all
-
     render json: shuls, status: :ok
   end
 
@@ -16,7 +15,6 @@ class ShulsController < ApplicationController
 
   def update
     shul = Shul.find_by(id: params[:id])
-    byebug
     if shul
       shul.update(shul_params)
       render json: shul, status: :accepted
@@ -25,16 +23,16 @@ class ShulsController < ApplicationController
     end
   end
 
-  def destroy
-    shul = Shul.find_by(id: params[:id])
-    if shul
-      byebug
-      shul.destroy
-      head :no_content
-    else
-      render json: { error: 'Shul not found' }, status: :not_found
-    end
-  end
+  # def destroy
+  #   shul = Shul.find_by(id: params[:id])
+  #   if shul
+  #     byebug
+  #     shul.destroy
+  #     head :no_content
+  #   else
+  #     render json: { error: 'Shul not found' }, status: :not_found
+  #   end
+  # end
 
   private
 

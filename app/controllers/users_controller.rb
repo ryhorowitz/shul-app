@@ -4,7 +4,6 @@ class UsersController < ApplicationController
 
   def create
     user = User.create!(user_params)
-    # log user in after successful creation
     session[:user_id] = user.id
     render json: user, status: :created
   end
@@ -16,7 +15,6 @@ class UsersController < ApplicationController
 
   def update
     user = User.find_by(id: params[:id])
-    # byebug
     user.update!(username: params[:_json])
     render json: user, status: :ok
   end

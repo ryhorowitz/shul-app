@@ -16,7 +16,8 @@ function ShulReviews() {
 
   const reviews = shul.reviews.map(review => {
     return <li key={review.id}>
-      <h4>{review.title} by: {review.user.username}</h4>
+      <h4>{review.title}</h4>
+      <h4>by: {review.user.username}</h4>
       <p>{review.body}</p>
     </li>
   })

@@ -58,29 +58,30 @@ function Shuls() {
     setEditShul(null)
   };
 
-  function filterOutDeletedShul(shulsArray, e) {
-    return shulsArray.filter(shul => shul.id !== e.target.id)
-  }
-  function handleDeleteShul(e) {
-    console.log(e.target.className)
-    fetch(`/shuls/${e.target.className}`, { method: 'DELETE' })
-      .then(res => {
-        if (res.ok) {
-          res.json().then(() => {
-            setShuls(filterOutDeletedShul(shuls, e))
-          })
-        }
-      })
-  }
+  // **** Got rid of this functionality to delete shul. It is not necessary for MVP
+  // function filterOutDeletedShul(shulsArray, e) {
+  //   return shulsArray.filter(shul => shul.id !== e.target.id)
+  // }
+  // function handleDeleteShul(e) {
+  //   console.log(e.target.className)
+  //   fetch(`/shuls/${e.target.className}`, { method: 'DELETE' })
+  //     .then(res => {
+  //       if (res.ok) {
+  //         res.json().then(() => {
+  //           setShuls(filterOutDeletedShul(shuls, e))
+  //         })
+  //       }
+  //     })
+  // }
 
   const shulList = shuls.map(shul => {
     return <li key={shul.id}>{shul.name}
       <ul>
         <li>movement: {shul.movement}</li>
         <li>number of reviews: {shul.reviews.length}</li>
-        <button
+        {/* <button
           onClick={handleDeleteShul}
-          className={shul.id}>Delete</button>
+          className={shul.id}>Delete</button> */}
         <button
           onClick={() => handleEditShul(shul)}
           className={shul.id}>Update</button>

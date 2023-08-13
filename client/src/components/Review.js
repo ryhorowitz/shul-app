@@ -20,17 +20,22 @@ function Reviews({ review }) {
   function filterOutDeletedReview(id) {
     return user.reviews.filter(review => review.id !== id)
   }
-  function handleDeleteReview() {
-    fetch(`/users/${user.id}/reviews/${review.id}`, { method: 'DELETE' })
-      // add res.ok
-      .then(() => {
-        setUser({
-          ...user,
-          reviews: filterOutDeletedReview(review.id)
-        })
-      })
-      .catch(e => console.error('ERROR', e))
+
+  function findReviewById(id) {
+    return user.reviews.find(review => review.id === id)
   }
+
+  async function handleDeleteReview() {
+    const deletedReview = findReviewById(review.id)
+
+    const response = await fetch(`/users/${user.id}/reviews/${review.id}`, { method: 'DELETE' })
+
+    setUser({
+      ...user,
+      reviews: filterOutDeletedReview(review.id)
+    })
+  }
+
 
   function updateReviewsArray(reviews, updatedReview) {
     const updatedReviews = reviews.map(review => {

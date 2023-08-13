@@ -6,8 +6,6 @@ function CreateReview() {
   const { shuls, user, setUser } = useContext(AppContext)
   const [errors, setErrors] = useState([])
   const [reviewForm, setReviewForm] = useState({
-    // if I refresh I error out because shuls[0] is undefined 
-    // how do I setState to based off of a value that should be passed in through AppContext
     shul: '',
     title: '',
     body: ''
@@ -28,6 +26,9 @@ function CreateReview() {
       ...reviewForm,
       shul: e.target.value
     })
+  }
+  function findArrayDifference(arr1, arr2) {
+    return arr1.filter(item => !arr2.includes(item))
   }
 
   async function handleSubmitReview(e) {

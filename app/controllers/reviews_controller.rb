@@ -29,6 +29,8 @@ class ReviewsController < ApplicationController
     params.permit(:id, :body, :title, :user_id, :shul_id)
   end
 
+  # fix this!!!
+  # should be using sessionID to find the user
   def find_user
     User.find(params[:user_id])
   end
